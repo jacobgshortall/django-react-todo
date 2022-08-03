@@ -93,8 +93,17 @@ class ToDoApp extends React.Component {
     }
 
     componentDidMount = () => {
+        this.fetchToDoList();
+    };
+
+    fetchToDoList = () => {
         fetch("http://127.0.0.1:8000/api/get_list")
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) {
+                    console.log("Response error.");
+                }
+                return res.json();
+            })
             .then((data) => this.setState({ toDoItems: data }));
     };
 
