@@ -58,7 +58,7 @@ function ToDoForm(props) {
                             type="text"
                             onChange={props.handleInputChange}
                             value={props.formValue}
-                            name="toDoItem"
+                            name="content"
                         />
                         <button
                             type="submit"
@@ -121,8 +121,15 @@ class ToDoApp extends React.Component {
             return;
         }
 
-        toDoItems.unshift(value);
-        this.setState({ toDoItems: toDoItems, formValue: "" });
+        fetch("http://127.0.0.1:8000/api/add_item", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ content: value })
+        })
+            .then((res) => res.json())
+            .then((res) => this.fetchToDoList());
     };
 
     handleInputChange = (e) => {

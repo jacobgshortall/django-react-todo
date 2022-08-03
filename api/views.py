@@ -10,3 +10,12 @@ def get_list(request):
     items = ToDoItem.objects.all()
     serializer = ToDoSerializer(items, many=True)
     return Response(serializer.data)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def add_item(request):
+    serializer = ToDoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
