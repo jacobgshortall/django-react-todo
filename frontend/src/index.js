@@ -24,7 +24,7 @@ function ToDoList(props) {
                         <span className="fs-5 td-text">{item.content}</span>
                     </div>
                     <div
-                        onClick={props.handleDelete}
+                        onClick={() => props.handleDelete(item.id)}
                         className="col del-cont d-flex justify-content-center align-items-center mt-2 mt-md-0 p-2 p-md-0"
                         data-content={item.content}
                     >
@@ -136,13 +136,13 @@ class ToDoApp extends React.Component {
         this.setState({ formValue: e.target.value });
     };
 
-    handleDelete = (e) => {
-        const toDoContent = e.target.getAttribute("data-content");
-        const toDoItems = this.state.toDoItems.slice();
-        const index = toDoItems.indexOf(toDoContent);
-
-        toDoItems.splice(index, 1);
-        this.setState({ toDoItems: toDoItems });
+    handleDelete = (id) => {
+        fetch(`http://127.0.0.1:8000/api/delete_item/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => this.fetchToDoList());
     };
 
     render() {

@@ -1,4 +1,5 @@
 *.cfg
+db.sqlite3
 Include/
 Lib/
 Scripts/
