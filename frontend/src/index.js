@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { Error, displayError } from "./error.js";
+import { Error, displayError, checkInvalidInput } from "./error.js";
 import { handleClick, handleAnimationEnd } from "./click_handling";
 
 /**
@@ -116,12 +116,14 @@ class ToDoApp extends React.Component {
         if (!value.trim()) {
             displayError("Invalid input!");
             return;
-        } else if (toDoItems.includes(value)) {
+        } else if (checkInvalidInput(value, toDoItems)) {
             displayError("Entry already exists.");
             return;
         }
 
-        fetch("http://127.0.0.1:8000/api/add_item", {
+        this.setState({ formValue: "" });
+
+        fetch("http://127.0.0.1:8000/api/add_item/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

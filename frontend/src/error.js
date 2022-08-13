@@ -21,4 +21,13 @@ function displayError(message) {
     }, 2000);
 }
 
-export { Error, displayError };
+/** Check if submitted form value already exists in list.  */
+function checkInvalidInput(value, items) {
+    for (const obj of items) {
+        if (obj.content === value) {
+            return true;
+        }
+    }
+}
+
+export { Error, displayError, checkInvalidInput };
