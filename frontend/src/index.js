@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Cookies from "js-cookie";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -127,6 +128,7 @@ class ToDoApp extends React.Component {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
+                // "X-CSRFToken": Cookies.get("csrftoken")
             },
             body: JSON.stringify({ content: value })
         })
@@ -143,6 +145,7 @@ class ToDoApp extends React.Component {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
+                // "X-CSRFToken": Cookies.get("csrftoken")
             }
         }).then((res) => this.fetchToDoList());
     };
