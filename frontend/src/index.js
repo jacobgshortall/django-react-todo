@@ -127,8 +127,8 @@ class ToDoApp extends React.Component {
         fetch("http://127.0.0.1:8000/api/add_item/", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
-                // "X-CSRFToken": Cookies.get("csrftoken")
+                "Content-Type": "application/json",
+                "X-CSRFToken": Cookies.get("csrftoken")
             },
             body: JSON.stringify({ content: value })
         })
@@ -144,8 +144,8 @@ class ToDoApp extends React.Component {
         fetch(`http://127.0.0.1:8000/api/delete_item/${id}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
-                // "X-CSRFToken": Cookies.get("csrftoken")
+                "Content-Type": "application/json",
+                "X-CSRFToken": Cookies.get("csrftoken")
             }
         }).then((res) => this.fetchToDoList());
     };
