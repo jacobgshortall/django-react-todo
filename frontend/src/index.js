@@ -10,7 +10,7 @@ import { handleClick, handleAnimationEnd } from "./click_handling";
 /**
  * Return list display of to-do items.
  *
- * Props: items.
+ * Props: items, handleDelete.
  */
 function ToDoList(props) {
     return props.items.map((item) => (
@@ -19,6 +19,11 @@ function ToDoList(props) {
                 onClick={handleClick}
                 onAnimationEnd={handleAnimationEnd}
                 className="col-10 col-md-8 col-lg-6 bg-light rounded-1 td-item"
+                style={
+                    item.completed
+                        ? { textDecoration: "line-through" }
+                        : { textDecoration: "none" }
+                }
             >
                 <div className="row">
                     <div className="col-12 col-md-11 p-2">
