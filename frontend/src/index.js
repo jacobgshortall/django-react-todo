@@ -98,7 +98,7 @@ class ToDoApp extends React.Component {
     };
 
     fetchToDoList = () => {
-        fetch("http://127.0.0.1:8000/api/get_list")
+        fetch("http://127.0.0.1:8000/api/todo_list/")
             .then((res) => {
                 if (!res.ok) {
                     console.log("Response error.");
@@ -124,7 +124,7 @@ class ToDoApp extends React.Component {
 
         this.setState({ formValue: "" });
 
-        fetch("http://127.0.0.1:8000/api/add_item/", {
+        fetch("http://127.0.0.1:8000/api/todo_list/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
