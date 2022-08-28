@@ -7,9 +7,6 @@ from .serializers import ToDoSerializer
 
 
 class ToDoList(generics.ListCreateAPIView):
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
     queryset = ToDoItem.objects.all()
     serializer_class = ToDoSerializer
 
