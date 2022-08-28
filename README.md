@@ -21,10 +21,11 @@ After installation, clone this repository:
 git clone https://github.com/jacobshortall/django-react-todo.git
 ```
 
-You will need a local database file to store data. From the project root directory, create one using:
+You will need a local database file to store data. From the project root directory, create migrations using:
 
 ```
-touch db.sqlite3
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 Then, run the project using:
