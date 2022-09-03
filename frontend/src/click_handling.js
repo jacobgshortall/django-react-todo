@@ -8,7 +8,7 @@ const checkLineThrough = (element) => {
 };
 
 /** Trigger click animation for to-do item. */
-const handleClick = (e) => {
+const handleItemClick = (e) => {
     if (e.target.classList.contains("del-cont")) {
         return;
     }
@@ -22,4 +22,4 @@ const handleAnimationEnd = (e) => {
     e.target.classList.remove("clicked");
 };
 
-export { handleClick, handleAnimationEnd };
+export { handleItemClick, handleAnimationEnd };

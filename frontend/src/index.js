@@ -5,7 +5,7 @@ import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Error, displayError, checkInvalidInput } from "./error.js";
-import { handleClick, handleAnimationEnd } from "./click_handling";
+import { handleItemClick, handleAnimationEnd } from "./click_handling";
 
 /**
  * Return list display of to-do items.
@@ -16,7 +16,7 @@ function ToDoList(props) {
     return props.items.map((item) => (
         <div key={item.id} className="row justify-content-center mb-3">
             <div
-                onClick={handleClick}
+                onClick={handleItemClick}
                 onAnimationEnd={handleAnimationEnd}
                 className="col-10 col-md-8 col-lg-6 bg-light rounded-1 td-item"
                 style={
