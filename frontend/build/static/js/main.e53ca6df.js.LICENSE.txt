@@ -4,8 +4,6 @@
  * Copyright 2022 Fonticons, Inc.
  */
 
-/*! js-cookie v3.0.1 | MIT */
-
 /**
  * @license React
  * react-dom.production.min.js

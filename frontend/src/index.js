@@ -1,22 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Cookies from "js-cookie";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Error, displayError, checkInvalidInput } from "./error.js";
-import { handleItemClick, handleAnimationEnd } from "./click_handling";
+import { checkLineThrough, handleAnimationEnd } from "./click_handling";
 
 /**
  * Return list display of to-do items.
  *
- * Props: items, handleDelete.
+ * Props: items, handleDelete, handleItemClick.
  */
-function ToDoList(props) {
+const ToDoList = (props) => {
     return props.items.map((item) => (
         <div key={item.id} className="row justify-content-center mb-3">
             <div
-                onClick={handleItemClick}
+                onClick={(e) =>
+                    props.handleItemClick(e, item.id, item.completed)
+                }
                 onAnimationEnd={handleAnimationEnd}
                 className="col-10 col-md-8 col-lg-6 bg-light rounded-1 td-item"
                 style={
@@ -40,7 +41,7 @@ function ToDoList(props) {
             </div>
         </div>
     ));
-}
+};
 
 /**
  * Return form for user to add to-do items.
@@ -113,6 +114,23 @@ class ToDoApp extends React.Component {
             .then((data) => this.setState({ toDoItems: data }));
     };
 
+    handleItemClick = (e, item_id, completed) => {
+        if (e.target.classList.contains("del-cont")) {
+            return;
+        }
+        let element = e.target.closest(".td-item");
+        element.classList.add("clicked");
+        checkLineThrough(element);
+
+        fetch(`http://127.0.0.1:8000/api/update_item/${item_id}/`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ completed: completed ? "False" : "True" })
+        }).then((res) => this.fetchToDoList());
+    };
+
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -132,8 +150,7 @@ class ToDoApp extends React.Component {
         fetch("http://127.0.0.1:8000/api/todo_list/", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": Cookies.get("csrftoken")
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({ content: value })
         })
@@ -149,8 +166,7 @@ class ToDoApp extends React.Component {
         fetch(`http://127.0.0.1:8000/api/delete_item/${id}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": Cookies.get("csrftoken")
+                "Content-Type": "application/json"
             }
         }).then((res) => this.fetchToDoList());
     };
@@ -167,6 +183,7 @@ class ToDoApp extends React.Component {
                 <ToDoList
                     items={this.state.toDoItems}
                     handleDelete={this.handleDelete}
+                    handleItemClick={this.handleItemClick}
                 />
             </div>
         );
