@@ -8,8 +8,8 @@ const checkLineThrough = (element) => {
 };
 
 /** Remove 'clicked' class from to-do item after animation. */
-const handleAnimationEnd = (e) => {
-    e.target.classList.remove("clicked");
+const handleAnimationEnd = (event) => {
+    event.target.classList.remove("clicked");
 };
 
 export { checkLineThrough, handleAnimationEnd };

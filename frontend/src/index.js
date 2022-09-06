@@ -15,8 +15,8 @@ const ToDoList = (props) => {
     return props.items.map((item) => (
         <div key={item.id} className="row justify-content-center mb-3">
             <div
-                onClick={(e) =>
-                    props.handleItemClick(e, item.id, item.completed)
+                onClick={(event) =>
+                    props.handleItemClick(event, item.id, item.completed)
                 }
                 onAnimationEnd={handleAnimationEnd}
                 className="col-10 col-md-8 col-lg-6 bg-light rounded-1 td-item"
@@ -114,11 +114,11 @@ class ToDoApp extends React.Component {
             .then((data) => this.setState({ toDoItems: data }));
     };
 
-    handleItemClick = (e, item_id, completed) => {
-        if (e.target.classList.contains("del-cont")) {
+    handleItemClick = (event, item_id, completed) => {
+        if (event.target.classList.contains("del-cont")) {
             return;
         }
-        let element = e.target.closest(".td-item");
+        let element = event.target.closest(".td-item");
         element.classList.add("clicked");
         checkLineThrough(element);
 
@@ -131,8 +131,8 @@ class ToDoApp extends React.Component {
         }).then((res) => this.fetchToDoList());
     };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    handleSubmit = (event) => {
+        event.preventDefault();
 
         const toDoItems = this.state.toDoItems.slice();
         const value = this.state.formValue;
@@ -158,8 +158,8 @@ class ToDoApp extends React.Component {
             .then((res) => this.fetchToDoList());
     };
 
-    handleInputChange = (e) => {
-        this.setState({ formValue: e.target.value });
+    handleInputChange = (event) => {
+        this.setState({ formValue: event.target.value });
     };
 
     handleDelete = (id) => {
